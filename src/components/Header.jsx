@@ -63,13 +63,13 @@ export default function Header() {
           <span>{getFormatedDate(new Date())}</span>
         </div>
         {/* Logo */}
-        {/* <a href="/">
+        <a href="/">
           <img
             className="max-w-[100px] md:max-w-[165px]"
             src={logo}
             alt="Lws"
           />
-        </a> */}
+        </a>
         {/* Logo Ends */}
         {/* */}
        <Search />

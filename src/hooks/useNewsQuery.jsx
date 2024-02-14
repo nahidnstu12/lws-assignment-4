@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const baseURL = "http://localhost:8050/v2";
+const baseURL = "http://localhost:8000/v2";
 
 export default function useNewsQuery(params) {
   const [newsData, setNewsData] = useState(null);
@@ -19,6 +19,7 @@ export default function useNewsQuery(params) {
       });
 
       let apiURI = null;
+
       if (params) {
         if (params.category) {
           apiURI = `${baseURL}/top-headlines?category=${params.category}`;

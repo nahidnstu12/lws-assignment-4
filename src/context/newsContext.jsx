@@ -8,13 +8,13 @@ const initialState = {
 const NewsContext = createContext(initialState);
 
 const NewsProvider = ({ children }) => {
-  const [category, setCategory] = useState(null);
-  const [search, setSearch] = useState("");
-  const [active, setActive] = useState(null);
+  const [category, setCategory] = useState(null);  // for category
+  const [search, setSearch] = useState("");  //for seaarching
+  const [active, setActive] = useState(null); //for default calling
 
   const { items, loading, error } = useNewsQuery({ category, search, active });
 
-  console.log({ category, search, active });
+  // console.log({ category, search, active });
 
   return (
     <NewsContext.Provider
