@@ -3,7 +3,6 @@ import { useNews } from "../context/newsContext";
 import LeftNewsComponent from "./LeftNewsComponent";
 import Loader from "./Loader";
 import RightNewsComponent from "./RightNewsComponent";
-import thumb from "/src/assets/thumb.png";
 
 export default function News() {
   const { items, setActive, loading, error } = useNews();
@@ -19,11 +18,11 @@ export default function News() {
   }, [error]);
 
   const leftPartNews =
-    items?.length > 10 ? items?.slice(0, items?.length / 2) : items;
+    items?.length > 10 ? items?.slice(0, (items?.length * 2) / 3) : items;
   const rightPartNews =
     items?.length < 10
       ? []
-      : items?.slice(items?.length / 2, items?.length - 1);
+      : items?.slice((items?.length * 2) / 3, items?.length - 1);
 
   // console.log({ loading, error });
 
@@ -36,7 +35,7 @@ export default function News() {
             <Loader message={loading?.message} />
           ) : leftPartNews?.length > 0 ? (
             leftPartNews?.map((item, index) => (
-              <LeftNewsComponent item={item} key={index} />
+              <LeftNewsComponent item={item} key={index} index={index} />
             ))
           ) : (
             <div className="min-w-max text-4xl">No Data Found</div>
@@ -47,22 +46,16 @@ export default function News() {
           <div className="space-y-6 divide-y-2 divide-[#D5D1C9]">
             {/* news item */}
 
-            <div className="col-span-12 mb-6 md:col-span-8">
-              {loading?.state && (
-                <img className="w-full" src={thumb} alt="thumb" />
-              )}
-
-              {loading.state ? (
-                <div className="mt-5">
-                  <Loader message={"loading?.message"} />
-                </div>
-              ) : (
-                rightPartNews?.length > 0 &&
-                rightPartNews?.map((item, index) => (
-                  <RightNewsComponent item={item} key={index} />
-                ))
-              )}
-            </div>
+            {loading.state ? (
+              <div className="mt-5">
+                <Loader message={"loading?.message"} />
+              </div>
+            ) : (
+              rightPartNews?.length > 0 &&
+              rightPartNews?.map((item, index) => (
+                <RightNewsComponent item={item} key={index} index={index} />
+              ))
+            )}
           </div>
         </div>
       </div>
