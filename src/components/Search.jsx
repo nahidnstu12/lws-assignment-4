@@ -3,10 +3,11 @@ import { useNews } from "../context/newsContext";
 import { debounce } from "../helpers/utility";
 
 export default function Search() {
-  const { setSearch } = useNews();
+  const { setSearch, setCategory } = useNews();
   const inputRef = useRef();
 
   const handleSearch = () => {
+    setCategory("");
     setSearch(inputRef.current.value);
   };
 

@@ -18,27 +18,28 @@ export default function useNewsQuery(params) {
         message: "Fetching news data...",
       });
 
-
-      let apiURI = params?.category
-        ? `${baseURL}/top-headlines?category=${params?.category}`
-        : params?.search
-        ? `${baseURL}/search?q=${params?.search}`
-        : params?.active
-        ? `${baseURL}/top-headlines`
-        : null;
-
+      let apiURI = null;
+      if (params) {
+        if (params.category) {
+          apiURI = `${baseURL}/top-headlines?category=${params.category}`;
+        } else if (params.search) {
+          apiURI = `${baseURL}/search?q=${params.search}`;
+        } else if (params.active) {
+          apiURI = `${baseURL}/top-headlines`;
+        }
+      }
 
       const response = apiURI ? await fetch(apiURI) : null;
 
       if (apiURI) {
-        if (!response?.ok) {
+        if (!response.ok) {
           const errorMessage = `Fetching news data failed: ${response?.status}`;
           throw new Error(errorMessage);
         }
 
         const data = await response.json();
 
-        const responseItems = params?.search ? data?.result : data?.articles;
+        const responseItems = params.search ? data.result : data.articles;
 
         setNewsData(responseItems);
       }

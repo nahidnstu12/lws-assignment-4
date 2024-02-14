@@ -13,12 +13,10 @@ const categories = [
 ];
 
 export default function Categories() {
-  const {setCategory} = useNews();
-  // const [category, setCategory] = useState(null);
-  // const { items } = useNewsQuery({category});
-
-  // console.log({ items });
+  const {setCategory, setSearch} = useNews();
+  
   const handleClick = (val) => {
+    setSearch("");
     setCategory(val.toLowerCase());
   };
   return (

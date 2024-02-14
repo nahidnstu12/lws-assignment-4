@@ -12,10 +12,14 @@ const NewsProvider = ({ children }) => {
   const [search, setSearch] = useState("");
   const [active, setActive] = useState(null);
 
-  const { items } = useNewsQuery({ category, search, active });
+  const { items, loading, error } = useNewsQuery({ category, search, active });
+
+  console.log({ category, search, active });
 
   return (
-    <NewsContext.Provider value={{ setCategory, setSearch, setActive, items }}>
+    <NewsContext.Provider
+      value={{ setCategory, setSearch, setActive, items, loading, error }}
+    >
       {children}
     </NewsContext.Provider>
   );
