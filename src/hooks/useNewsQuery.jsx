@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const baseURL = "http://localhost:8000/v2";
+const baseURL = "http://localhost:8050/v2";
 
 export default function useNewsQuery(params) {
   const [newsData, setNewsData] = useState(null);
@@ -22,11 +22,15 @@ export default function useNewsQuery(params) {
 
       if (params) {
         if (params.category) {
-          apiURI = `${baseURL}/top-headlines?category=${params.category}`;
+          apiURI = `${
+            import.meta.env.VITE_API_BASE_URL
+          }/top-headlines?category=${params.category}`;
         } else if (params.search) {
-          apiURI = `${baseURL}/search?q=${params.search}`;
+          apiURI = `${import.meta.env.VITE_API_BASE_URL}/search?q=${
+            params.search
+          }`;
         } else if (params.active) {
-          apiURI = `${baseURL}/top-headlines`;
+          apiURI = `${import.meta.env.VITE_API_BASE_URL}/top-headlines`;
         }
       }
 

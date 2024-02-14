@@ -1,8 +1,8 @@
 import React from "react";
-import Categories from "./Categories";
-// import logo from "/src/assets/logo.png"
 import { getFormatedDate } from "../helpers/utility";
+import Categories from "./Categories";
 import Search from "./Search";
+import logo from "/src/assets/logo.png";
 
 export default function Header() {
   return (
@@ -72,7 +72,7 @@ export default function Header() {
         </a>
         {/* Logo Ends */}
         {/* */}
-       <Search />
+        <Search />
       </div>
       {/* categories */}
       <Categories />
