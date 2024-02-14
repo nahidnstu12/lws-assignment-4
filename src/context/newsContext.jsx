@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import useNewsQuery from "../hooks/useNewsQuery";
 
 const initialState = {
@@ -9,18 +9,13 @@ const NewsContext = createContext(initialState);
 
 const NewsProvider = ({ children }) => {
   const [category, setCategory] = useState(null);
-  const [search, setSearch] = useState("Develop");
+  const [search, setSearch] = useState("");
+  const [active, setActive] = useState(null);
 
-  const { items } = useNewsQuery({ category, search });
-
-  console.log("from hook", category, items);
-
-//   useEffect(()=> {
-    
-//   }, [])
+  const { items } = useNewsQuery({ category, search, active });
 
   return (
-    <NewsContext.Provider value={{ setCategory, setSearch }}>
+    <NewsContext.Provider value={{ setCategory, setSearch, setActive, items }}>
       {children}
     </NewsContext.Provider>
   );

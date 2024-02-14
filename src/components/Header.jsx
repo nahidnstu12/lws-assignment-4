@@ -1,7 +1,8 @@
 import React from "react";
 import Categories from "./Categories";
-import logo from "/src/assets/logo.png"
+// import logo from "/src/assets/logo.png"
 import { getFormatedDate } from "../helpers/utility";
+import Search from "./Search";
 
 export default function Header() {
   return (
@@ -62,31 +63,16 @@ export default function Header() {
           <span>{getFormatedDate(new Date())}</span>
         </div>
         {/* Logo */}
-        <a href="/">
+        {/* <a href="/">
           <img
             className="max-w-[100px] md:max-w-[165px]"
             src={logo}
             alt="Lws"
           />
-        </a>
+        </a> */}
         {/* Logo Ends */}
         {/* */}
-        <div className="flex items-center space-x-3 lg:space-x-8">
-          <form>
-            <div className="flex">
-              <div className="relative overflow-hidden rounded-lg text-gray-50 md:min-w-[380px] lg:min-w-[440px]">
-                <input
-                  type="search"
-                  id="search-dropdown"
-                  className="z-20 block w-full bg-gray-200 px-4 py-2 pr-10 focus:outline-none text-black"
-                  placeholder="Search Task"
-                  // required
-                  // ref={inputRef}
-                />
-              </div>
-            </div>
-          </form>
-        </div>
+       <Search />
       </div>
       {/* categories */}
       <Categories />

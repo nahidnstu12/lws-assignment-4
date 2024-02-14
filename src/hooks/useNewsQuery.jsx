@@ -9,9 +9,6 @@ export default function useNewsQuery(params) {
     message: "",
   });
   const [error, setError] = useState(null);
-  console.log("hooks");
-
-  // console.log("url", params,);
 
   const fetchNewsData = async () => {
     try {
@@ -21,26 +18,30 @@ export default function useNewsQuery(params) {
         message: "Fetching news data...",
       });
 
-      console.log("hit before");
 
       let apiURI = params?.category
         ? `${baseURL}/top-headlines?category=${params?.category}`
         : params?.search
         ? `${baseURL}/search?q=${params?.search}`
-        : `${baseURL}/top-headlines`;
+        : params?.active
+        ? `${baseURL}/top-headlines`
+        : null;
 
-      console.log("data", apiURI, params?.category);
 
-      const response = await fetch(apiURI);
+      const response = apiURI ? await fetch(apiURI) : null;
 
-      if (!response.ok) {
-        const errorMessage = `Fetching news data failed: ${response.status}`;
-        throw new Error(errorMessage);
+      if (apiURI) {
+        if (!response?.ok) {
+          const errorMessage = `Fetching news data failed: ${response?.status}`;
+          throw new Error(errorMessage);
+        }
+
+        const data = await response.json();
+
+        const responseItems = params?.search ? data?.result : data?.articles;
+
+        setNewsData(responseItems);
       }
-
-      const data = await response.json();
-
-      setNewsData(data?.articles);
     } catch (err) {
       setError(err);
     } finally {
@@ -60,7 +61,7 @@ export default function useNewsQuery(params) {
     });
 
     fetchNewsData();
-  }, [params?.category, params?.search]);
+  }, [params?.category, params?.search, params?.active]);
 
   console.log({ error });
   return {
